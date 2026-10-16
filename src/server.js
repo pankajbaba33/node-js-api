@@ -27,7 +27,7 @@ app.use("/api/personal-details", personalDetailsRoutes);
 // Health check root route
 app.get("/", (req, res) => {
   res.json({
-    message: "HireHub API is running smoothly",
+    message: "HireHub API is running pankaja  smoothly",
     timestamp: new Date().toISOString(),
   });
 });
