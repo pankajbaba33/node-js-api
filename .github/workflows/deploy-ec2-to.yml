@@ -1,0 +1,29 @@
+name: Deploy webapp Website to EC2
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+
+    steps:
+      - name: Deploy to EC2
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$EC2_SSH_KEY" | tr -d '\r' > ~/.ssh/ec2.pem
+          chmod 600 ~/.ssh/ec2.pem
+          ssh-keyscan -H "$EC2_HOST" >> ~/.ssh/known_hosts
+
+          ssh -i ~/.ssh/ec2.pem "ec2-user@$EC2_HOST" 'bash -se' <<'EOF'
+          APP="/home/ec2-user/ec2-webapp"
+          if [ -d "$APP/.git" ]; then
+            cd "$APP"
+            git checkout static
+            git pull --ff-only origin static
+          else
+            git clone -b static "https://github.com/${{ github.repository }}.git" "$APP"
+          fi
+          EOF

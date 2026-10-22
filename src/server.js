@@ -6,6 +6,7 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const personalDetailsRoutes = require("./routes/personalDetailsRoutes");
+const jobRoutes = require("./routes/jobRoutes");
 
 const app = express();
 
@@ -23,6 +24,7 @@ connectDB();
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/personal-details", personalDetailsRoutes);
+app.use("/api/jobs", jobRoutes);
 
 // Health check root route
 app.get("/", (req, res) => {
