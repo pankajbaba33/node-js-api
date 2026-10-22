@@ -24,6 +24,6 @@ jobs:
             git checkout static
             git pull --ff-only origin static
           else
-            git clone -b static "https://github.com/${{ github.repository }}.git" "$APP"
+            git clone -b main "https://github.com/${{ github.repository }}.git" "$APP"
           fi
           EOF
