@@ -22,7 +22,7 @@ exports.createPersonalDetails = async (data) => {
   }
 
   if (!height || height.trim() === '') {
-    const error = new Error('Height is required (e.g. 5\'6" or 168 cm).');
+    const error = new Error('Heightesdv s required (e.g. 5\'6" or 168 cm).');
     error.statusCode = 400;
     throw error;
   }
